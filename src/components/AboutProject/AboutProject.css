@@ -1,0 +1,239 @@
+.aboutProject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0;
+  max-width: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1152px) {
+  .aboutProject {
+    max-width: 1024px;
+  }
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject {
+    max-width: 320px;
+  }
+}
+
+.aboutProject_container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 1140px;
+  width: 100%;
+  margin: 0;
+  padding: 110px 0;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject_container {
+    max-width: 668px;
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject_container {
+    max-width: 284px;
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+
+.aboutProject__title {
+  margin: 0;
+  padding-bottom: 23px;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  text-align: left;
+  border-bottom: solid 1px #000;
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__title {
+    padding-bottom: 28px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+}
+
+.aboutProject__box {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  margin: 70px 0 110px;
+  padding: 0;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__box {
+    margin-bottom: 93px;
+    gap: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__box {
+    flex-direction: column;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__description {
+    margin-bottom: 27px;
+  }
+
+  .aboutProject__description:last-of-type {
+    margin-bottom: 0px;
+  }
+}
+
+.aboutProject__info_1 {
+  margin: 0;
+  padding-bottom: 26px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  text-align: left;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__info_1 {
+    padding-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__info_1 {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 18px;
+  }
+}
+
+.aboutProject__info_2 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__info_2 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__info_2 {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+.aboutProject__period {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aboutProject__period_description {
+  width: 20%;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__period_description {
+    width: 21%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__period_description {
+    width: 35%;
+  }
+}
+
+.aboutProject__period_description:last-of-type {
+  width: 80%;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__period_description:last-of-type {
+    width: 79%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__period_description:last-of-type {
+    width: 65%;
+  }
+}
+
+.aboutProject__period_time {
+  background: #f2f2f2;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  padding: 9px 14px;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__period_time {
+    font-size: 11px;
+  }
+}
+
+.aboutProject__period_time:last-of-type {
+  background: #2be080;
+}
+
+.aboutProject__period_text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #a0a0a0;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 984px) {
+  .aboutProject__period_text {
+    font-weight: 400;
+    font-family: Suisse Intl;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__period_text {
+    font-family: Suisse Intl;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    margin-top: 10px;
+  }
+}

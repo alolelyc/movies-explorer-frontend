@@ -1,39 +1,11 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    /*color: #ffffff;*/
-    background-color: #000;
-    min-height: 100vh;
-    margin: 0 auto;
-    /*padding: 45px 0 58px;*/
-    font-family: "Inter", Arial, sans-serif;
-    font-style: normal;
-    align-items: center;
-  }
-  
-  @media screen and (max-width: 568px) {
-    .page {
-      padding-top: 28px;
-      padding-bottom: 34px;
-    }
-  }
-  
-  /*.page__content {
-    margin: 34px auto 67px;
-  
-    max-width: 880px;
-    padding: 0;
-  }
-  
-  @media screen and (max-width: 984px) {
-    .page__content {
-      max-width: 581px;
-    }
-  }
-  
-  @media screen and (max-width: 568px) {
-    .page__content {
-      margin: 42px 19px 48px;
-      max-width: 282px;
-    }
-  }*/
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /*max-width: 1280px;
+  min-width: 320px;*/
+  margin: 0 auto;
+  background-color: #fff;
+  font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+  font-style: normal;
+}

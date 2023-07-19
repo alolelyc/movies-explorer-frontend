@@ -1,33 +1,31 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../images/logo.svg";
+import "./Header.css";
+import Auth from "../Auth/Auth";
 import Navigation from "../Navigation/Navigation";
-import logo from '../../images/logo.svg';
-import './Header.css';
 
-function Header({ lendingPage, isLoggedIn }) {
-    return (
-        <header className="header">
-            <Link to='/'>
-                <img
-                    className='header__logo'
-                    src={logo}
-                    alt='логотип'
+function Header({ isLoggedIn, openBurgerMenu }) {
+  const { pathname } = useLocation();
 
-                />
-            </Link>
+  return (
+    <header
+      className={`header ${pathname === "/" ? "header_background-color_blue" : ""
+        }`}
+    >
+      <div className="header__box">
+        <Link to="/">
+          <img className="header__logo" src={logo} alt="логотип" />
+        </Link>
 
-            {!isLoggedIn && lendingPage
-                ? (
-                    <>
-                        <NavLink className="header__link-btn" to="/signup"> Регистрация </NavLink>
-                        <NavLink className="header__link-btn" to="/signin"> Войти </NavLink>
-                    </>
-                ) : <Navigation />}
-
-
-        </header>
-    );
+        {isLoggedIn ? (
+          <Navigation isLoggedIn={isLoggedIn} openBurgerMenu={openBurgerMenu} />
+        ) : (
+          <Auth />
+        )}
+      </div>
+    </header>
+  );
 }
 
 export default Header;

@@ -1,0 +1,25 @@
+.main {
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 1152px) {
+  .main {
+    max-width: 1024px;
+  }
+}
+
+@media screen and (max-width: 984px) {
+  .main {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    max-width: 320px;
+  }
+}
