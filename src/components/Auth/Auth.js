@@ -7,7 +7,7 @@ function Auth() {
       <Link className="auth__link-btn" to="/signup">
         Регистрация
       </Link>
-      <Link className="auth__link-btn" type="button" to="/signin">
+      <Link className="auth__link-btn" to="/signin">
         Войти
       </Link>
     </div>

@@ -3,28 +3,16 @@
   justify-content: center;
   align-items: center;
   background-color: #073042;
-  max-width: 1280px;
+
   width: 100%;
   margin: 0;
 
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 1152px) {
-  .promo {
-    max-width: 1024px;
-  }
-}
-
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .promo {
     max-width: 768px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .promo {
-    max-width: 320px;
   }
 }
 
@@ -33,21 +21,19 @@
   flex-direction: column;
   box-sizing: border-box;
   margin: 0;
-  max-width: 1140px;
   width: 100%;
-  /*padding-top: 50px;*/
-  padding-bottom: 60px;
+  padding: 50px 70px 60px;
 }
 
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .promo__box {
-    max-width: 680px;
+    padding: 300px 44px 70px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .promo__box {
-    padding-bottom: 40px;
+    padding: 183px 10px 40px;
   }
 }
 
@@ -61,61 +47,43 @@
   color: #fff;
 }
 
-@media screen and (max-width: 1152px) {
-  .promo__title {
-    max-width: 884px;
-  }
-}
-
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .promo__title {
     max-width: 680px;
     width: 100%;
-    margin: 300px 0 140px;
     align-self: center;
     text-align: center;
+    margin-bottom: 140px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .promo__title {
-    max-width: 300px;
+    width: 300px;
     font-size: 31px;
     line-height: 39px;
     letter-spacing: -1.24px;
-    margin: 183px 0 60px;
+    margin-bottom: 60px;
   }
 }
 
 .promo__image {
-  margin-left: auto;
+  align-self: flex-end;
   background-size: contain;
   background-repeat: no-repeat;
   width: 722px;
+  height: 244px;
   display: block;
   object-fit: cover;
 }
 
-/*
-@media screen and (max-width: 1152px) {
-  .promo__image {
-    max-width: 722px;
-  }
-}*/
-
 @media screen and (max-width: 984px) {
   .promo__image {
-    max-width: 680px;
-    width: 100%;
+    width: 680px;
     height: 230px;
+    width: 100%;
     margin: 0;
     align-self: center;
     text-align: center;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .promo__image {
-    max-width: 320px;
   }
 }

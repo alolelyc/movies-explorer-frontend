@@ -12,8 +12,8 @@
 }
 
 .movies-card__img {
-  width: 100%;
-  aspect-ratio: 1.79;
+  width: 250px;
+  height: 151px;
   object-fit: cover;
   object-position: center;
 }
@@ -32,7 +32,6 @@
 @media screen and (max-width: 984px) {
   .movies-card__box {
     max-width: 339px;
-
   }
 }
 
@@ -54,7 +53,6 @@
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-
 }
 
 @media screen and (max-width: 984px) {

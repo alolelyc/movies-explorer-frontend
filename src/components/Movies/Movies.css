@@ -6,7 +6,6 @@
   width: 100%;
 }
 
-
 @media screen and (max-width: 984px) {
   .movies {
     max-width: 768px;
@@ -16,6 +15,5 @@
 @media screen and (max-width: 768px) {
   .movies {
     max-width: 320px;
-
   }
 }

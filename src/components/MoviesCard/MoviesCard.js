@@ -21,10 +21,10 @@ function MoviesCard({ card }) {
         <Link className="movies-card__link" to={card.trailerLink}>
           {card.nameRU}
         </Link>
-        <div class="movies-card__like-box">
+        <div className="movies-card__like-box">
           <button
             type="button"
-            class="movies-card__like-button"
+            className="movies-card__like-button"
             name="btnlike"
           ></button>
         </div>

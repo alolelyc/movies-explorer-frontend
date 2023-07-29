@@ -2,25 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1280px;
   width: 100%;
   margin: 0;
   background-color: #f5f5f5;
 }
 
-@media screen and (max-width: 1152px) {
-  .techs {
-    max-width: 1024px;
-  }
-}
-
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .techs {
     max-width: 768px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .techs {
     max-width: 320px;
     background-color: #fff;
@@ -31,24 +24,20 @@
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 100px 0;
-  max-width: 1140px;
+  padding: 100px 70px;
+
   width: 100%;
 }
 
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .techs__box {
-    max-width: 668px;
-    padding-top: 90px;
-    padding-bottom: 90px;
+    padding: 90px 50px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .techs__box {
-    max-width: 284px;
-    padding-top: 60px;
-    padding-bottom: 70px;
+    padding: 70px 8px 70px;
   }
 }
 

@@ -2,26 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin: 0;
-  max-width: 1280px;
+
   width: 100%;
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 1152px) {
-  .aboutProject {
-    max-width: 1024px;
-  }
-}
-
-@media screen and (max-width: 984px) {
+@media screen and (max-width: 780px) {
   .aboutProject {
     max-width: 768px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .aboutProject {
     max-width: 320px;
   }
@@ -31,25 +24,28 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  max-width: 1140px;
   width: 100%;
   margin: 0;
-  padding: 110px 0;
+  padding: 110px 70px;
 }
 
-@media screen and (max-width: 984px) {
+/*
+@media screen and (max-width: 1152px) {
   .aboutProject_container {
-    max-width: 668px;
-    padding-top: 90px;
-    padding-bottom: 90px;
+    max-width: 884px;
+
+  }
+}*/
+
+@media screen and (max-width: 780px) {
+  .aboutProject_container {
+    padding: 90px 50px;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .aboutProject_container {
-    max-width: 284px;
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding: 70px 8px;
   }
 }
 
@@ -75,7 +71,7 @@
 .aboutProject__box {
   display: flex;
   list-style: none;
-  gap: 40px;
+  gap: 65px;
   margin: 70px 0 110px;
   padding: 0;
 }
@@ -114,6 +110,13 @@
   letter-spacing: -0.8px;
   text-align: left;
 }
+
+/*
+.aboutProject__info_1:last-of-type {
+  margin-left: 5px;
+
+
+}*/
 
 @media screen and (max-width: 984px) {
   .aboutProject__info_1 {
@@ -224,13 +227,11 @@
 @media screen and (max-width: 984px) {
   .aboutProject__period_text {
     font-weight: 400;
-    font-family: Suisse Intl;
   }
 }
 
 @media screen and (max-width: 768px) {
   .aboutProject__period_text {
-    font-family: Suisse Intl;
     font-weight: 400;
     font-size: 14px;
     line-height: normal;

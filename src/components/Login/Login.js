@@ -24,11 +24,11 @@ const Login = ({ onSubmit, isFormValid }) => {
             placeholder="Email"
             name="email"
             type="email"
-          /*minLength="2"
-        maxLength="30"
-        value={email}
-        onChange={handleEmailClick}
-        required*/
+            /*minLength="2"
+          maxLength="30"
+          value={email}
+          onChange={handleEmailClick}
+          required*/
           />
 
           <label className="login__input-label">Пароль</label>
@@ -41,8 +41,8 @@ const Login = ({ onSubmit, isFormValid }) => {
             maxLength="30"
             value={password}*/
             autoComplete="on"
-          /*onChange={handlePasswordClick}
-        required*/
+            /*onChange={handlePasswordClick}
+          required*/
           />
 
           <button

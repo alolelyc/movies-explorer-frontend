@@ -2,7 +2,7 @@ import React from "react";
 
 import "./Profile.css";
 
-function Profile({ }) {
+function Profile() {
   return (
     <section className="profile">
       <h1 className="profile__title">Привет, Виталий!</h1>

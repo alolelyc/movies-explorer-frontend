@@ -1,6 +1,6 @@
 import React from "react";
 import "./AboutMe.css";
-import Portfolio from '../Portfolio/Portfolio';
+import Portfolio from "../Portfolio/Portfolio";
 import myfoto from "../../images/myfoto.jpg";
 
 function AboutMe() {
@@ -13,9 +13,12 @@ function AboutMe() {
             <h3 className="aboutMe__name">Ольга</h3>
             <p className="aboutMe__info">Фронтенд-разработчик, 39 лет</p>
             <p className="aboutMe__description">
-              Родилась и&nbsp;выросла в&nbsp;Ленинградской области. Закончила РГГУ, факультет Менеджмент организации. Работаю в&nbsp;сфере закупок. На&nbsp;Вэб-разработчика пришла учиться с&nbsp;нуля.
+              Родилась и&nbsp;выросла в&nbsp;Ленинградской области. Закончила
+              РГГУ, факультет Менеджмент организации. Работаю в&nbsp;сфере
+              закупок. На&nbsp;Вэб-разработчика пришла учиться с&nbsp;нуля.
             </p>
-            <a className="aboutMe__link"
+            <a
+              className="aboutMe__link"
               href="https://github.com/alolelyc"
               target="_blank"
               rel="noreferrer"

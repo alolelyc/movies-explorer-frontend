@@ -1,14 +1,10 @@
-import React from 'react';
-import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import './SearchForm.css';
+import React from "react";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import "./SearchForm.css";
 
 function SearchForm({ onSubmit }) {
   return (
-    <form
-      className="search-form"
-      id="search-form"
-      onSubmit={onSubmit}
-    >
+    <form className="search-form" id="search-form" onSubmit={onSubmit}>
       <fieldset className="search-form__film">
         <label className="search-form__icon" />
         <input
@@ -28,8 +24,7 @@ function SearchForm({ onSubmit }) {
       </fieldset>
       <FilterCheckbox />
     </form>
-
-  )
+  );
 }
 
 export default SearchForm;

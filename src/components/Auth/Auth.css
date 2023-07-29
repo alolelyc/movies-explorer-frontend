@@ -3,6 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 28px;
+  /*margin: 0 auto;
+  padding: 0;*/
+}
+
+@media screen and (max-width: 520px) {
+  .auth {
+    gap: 12px;
+  }
 }
 
 .auth__link-btn {
@@ -10,20 +19,20 @@
   font-weight: 500;
   line-height: 16px;
   color: #fff;
-  margin-right: 30px;
   text-decoration: none;
+  padding: 8px 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .auth__link-btn {
     font-size: 10px;
-    margin-right: 14px;
   }
 }
 
 .auth__link-btn:last-child {
-  padding: 8px 20px;
+  padding: 8px 17px;
   margin-right: 0;
+  color: #000;
   background-color: #2be080;
   font-weight: 500;
   font-size: 12px;
@@ -38,7 +47,7 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 520px) {
   .auth__link-btn:last-child {
     font-size: 10px;
     padding: 5px 12px;

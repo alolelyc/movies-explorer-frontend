@@ -1,6 +1,4 @@
 import React from "react";
-/*import strelka from '../../images/strelka.jpg';*/
-import { Link } from "react-router-dom";
 
 import "./Portfolio.css";
 
@@ -10,39 +8,38 @@ function Portfolio() {
       <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__box">
         <li>
-          <Link
-            className="portfolio__link-item"
-            to="https://github.com/alolelyc/how-to-learn"
+          <a className="portfolio__link-item"
+            href="https://github.com/alolelyc/how-to-learn"
             target="_blank"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Статичный сайт</p>
             <p className="portfolio__link-strelka">↗</p>
-          </Link>
+          </a>
         </li>
 
         <li>
-          <Link
+          <a
             className="portfolio__link-item"
-            to="https://github.com/alolelyc/russian-travell"
+            href="https://alolelyc.github.io/russian-travel/"
             target="_blank"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Адаптивный сайт</p>
             <p className="portfolio__link-strelka">↗</p>
-          </Link>
+          </a>
         </li>
 
         <li>
-          <Link
+          <a
             className="portfolio__link-item"
-            to="https://github.com/alolelyc/mesto"
+            href="https://alolelyc.github.io/mesto/"
             target="_blank"
             rel="noreferrer"
           >
             <p className="portfolio__link-title">Одностраничное приложение</p>
             <p className="portfolio__link-strelka">↗</p>
-          </Link>
+          </a>
         </li>
       </ul>
     </section>

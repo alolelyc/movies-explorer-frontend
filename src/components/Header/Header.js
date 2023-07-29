@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import "./Header.css";
@@ -10,8 +11,9 @@ function Header({ isLoggedIn, openBurgerMenu }) {
 
   return (
     <header
-      className={`header ${pathname === "/" ? "header_background-color_blue" : ""
-        }`}
+      className={`header ${
+        pathname === "/" ? "header_background-color_blue" : ""
+      }`}
     >
       <div className="header__box">
         <Link to="/">

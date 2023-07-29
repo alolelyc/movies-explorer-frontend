@@ -28,17 +28,15 @@
   box-shadow: none;
   margin: 70px 0 28px;
   border: none;
-  border-bottom: 1px #424242 solid;
+  border-bottom: 1px #e8e8e8 solid;
   padding: 0 0 15px;
 }
-
 
 @media screen and (max-width: 984px) {
   .search-form__film {
     max-width: 708px;
     margin-top: 83px;
     margin-bottom: 30px;
-
   }
 }
 
@@ -63,20 +61,14 @@
   background-repeat: no-repeat;
 }
 
-
-@media screen and (max-width: 984px) {
-  .search-form__icon {}
-}
-
 @media screen and (max-width: 768px) {
   .search-form__icon {
     display: none;
-
   }
 }
 
 .search-form__input {
-
+  width: 100%;
   font-weight: 500;
   line-height: normal;
   font-size: 28px;
@@ -87,9 +79,6 @@
   border: 0;
 }
 
-
-
-
 @media screen and (max-width: 768px) {
   .search-form__input {
     font-size: 18px;
@@ -99,16 +88,11 @@
   }
 }
 
-/*
-.search-form__input:focus {
-  outline: none;
-}*/
-
 .search-form__submit {
   width: 80px;
   height: 33px;
   background-color: rgba(0, 0, 0, 0);
-  background-image: url(../../images/find-search-blue.png);
+  background-image: url(../../images/find-search-blue.svg);
   background-size: contain;
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -116,15 +100,9 @@
   border: 0;
   margin: 0;
   padding: 0;
+  transition: 0.3s ease;
 }
 
-/*
-@media screen and (max-width: 984px) {
-  .search-form__submit {}
+.search-form__submit:hover {
+  opacity: 0.8;
 }
-
-@media screen and (max-width: 568px) {
-  .search-form__submit {
-    margin-left: 227px;
-  }
-}*/
