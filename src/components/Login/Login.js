@@ -4,7 +4,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import useForm from "../../hooks/useForm";
-import { useEffect } from "react";
+//import { useEffect } from "react";
 import useTitle from "../../hooks/useTitle";
 
 const Login = ({ onSubmit, isUserAuthed }) => {
