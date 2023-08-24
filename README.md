@@ -3,3 +3,6 @@
 
 
 https://alolelyc.movies.nomoredomains.rocks
+
+Ссылка на пулреквест
+https://github.com/alolelyc/movies-explorer-frontend/pull/2
