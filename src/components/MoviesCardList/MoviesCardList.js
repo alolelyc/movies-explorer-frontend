@@ -11,23 +11,22 @@ function MoviesCardList (props) {
     movies,
     isLoading,
     nonViewedMovies,
-    onClickMore,
+    addMoviesMore,
     saveMovies,
-    onLike,
-    onDislike
+    onAddMovie,
+    onRemoveMovie
   } = props;
 
-  const [savedMoviesArrId, setSavedMoviesArrId] = useState([]);
+  const [arrayIdentificators, setArrayIdentificators] = useState([]);
 
   useEffect(() => {
-    let ids = saveMovies.map((movie) => movie.movieId);
-    ids = [...new Set(ids)]
-    setSavedMoviesArrId(ids)
+    let newArrayIdentificators = saveMovies.map((movie) => movie.movieId);
+    newArrayIdentificators = Array.from(new Set(newArrayIdentificators));
+    setArrayIdentificators(newArrayIdentificators)
   }, [saveMovies])
 
-  function checkIsSavedMovies (movie) {
-    const id = movie.id ? movie.id : movie.movieId;
-    return savedMoviesArrId.includes(id)
+  function isSavedOrNot (card) {
+    return arrayIdentificators.includes(card.id || card.movieId)
   }
 
   return (
@@ -37,16 +36,16 @@ function MoviesCardList (props) {
           <ul className="movies-card-list__cards">
             {movies.map((card) => {
               return <MoviesCard card={card}
-                onLike={onLike}
-                onDislike={onDislike}
+                onAddMovie={onAddMovie}
+                onRemoveMovie={onRemoveMovie}
                 key={card.id || card.movieId}
-                liked={checkIsSavedMovies(card)} />;
+                isLiked={isSavedOrNot(card)} />;
             })}
           </ul>
         ) : (<h3 className="movies__title">Ничего не найдено</h3>)}
         {nonViewedMovies?.length ?
           (<div className="movies-card-list__else-box">
-            <button className="movies-card-list__else" onClick={onClickMore}>Ещё</button>
+            <button className="movies-card-list__else" onClick={addMoviesMore}>Ещё</button>
           </div>) : ""}
       </div>
     </section>

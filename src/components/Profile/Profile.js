@@ -11,9 +11,6 @@ function Profile (props) {
   const currentUser = useContext(CurrentUserContext);
   const [isCurrentUser, setUserDifference] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser])
 
   useEffect(() => {
     if (values.name !== currentUser.name || values.email !== currentUser.email) {
@@ -26,16 +23,6 @@ function Profile (props) {
   useEffect(() => {
     resetValidation({ name: currentUser.name, email: currentUser.email }, {}, false);
   }, [currentUser, resetValidation]);
-
-  useEffect(() => {
-    if (isEdit) {
-      if (props.statusFetchEditProfile) {
-        setIsEdit(false);
-      } else {
-        setIsEdit(true)
-      }
-    }
-  }, [props.statusFetchEditProfile])
 
   function handleEditClick () {
     setIsEdit(true);

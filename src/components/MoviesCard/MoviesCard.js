@@ -7,9 +7,9 @@ import { ALL_MOVIES_SERVER } from "../../utils/constants";
 function MoviesCard (props) {
   const {
     card,
-    liked,
-    onLike,
-    onDislike
+    isLiked,
+    onAddMovie,
+    onRemoveMovie
   } = props;
 
   const calcDurationMovie = (dur) => {
@@ -26,12 +26,12 @@ function MoviesCard (props) {
   const thumbnail = isPageSavedMovies ? card.thumbnail : `${ALL_MOVIES_SERVER}${card.image.formats.thumbnail.url}`
   const id = isPageSavedMovies ? card.movieId : card.id;
 
-  function handleClickLike () {
-    onLike({ ...card, image, thumbnail, movieId: id })
+  function handleAddMovie () {
+    onAddMovie({ ...card, image, thumbnail, movieId: id })
   }
 
-  function handleClickDislike () {
-    onDislike(id)
+  function handleClickRemoveMovie () {
+    onRemoveMovie(id)
   }
   function handleClickTrailerLink () {
     window.open(card.trailerLink)
@@ -46,9 +46,9 @@ function MoviesCard (props) {
         <div className="movies-card__like-box">
           <button
             type="button"
-            className={`movies-card__like-button ${liked && 'movies-card__like-button_active'} ${isPageSavedMovies && 'movies-card__like-button_remove'}`}
+            className={`movies-card__like-button ${isLiked && 'movies-card__like-button_active'} ${isPageSavedMovies && 'movies-card__like-button_remove'}`}
             name="btnlike"
-            onClick={liked ? handleClickDislike : handleClickLike}
+            onClick={isLiked ? handleClickRemoveMovie : handleAddMovie}
           ></button>
         </div>
       </div>

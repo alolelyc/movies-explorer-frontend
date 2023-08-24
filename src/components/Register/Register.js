@@ -11,10 +11,6 @@ function Register ({ onSubmit, isUserAuthed }) {
 
   const { values, errors, isFormValid, onChange } = useForm();
 
-  useEffect(() => {
-    console.log(isFormValid);
-  }, [isFormValid])
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(values);
@@ -30,11 +26,11 @@ function Register ({ onSubmit, isUserAuthed }) {
         <form className="register__form" onSubmit={handleSubmit}>
           <label className="register__input-label">Имя</label>
           <input
-            className={`register__input ${errors.name && 'register__input_error'}`}
-            placeholder="Имя"
             id="name"
             name="name"
             type="text"
+            placeholder="Имя"
+            className={`register__input ${errors.name && 'register__input_error'}`}
             minLength="2"
             maxLength="30"
             value={values.name}
@@ -45,11 +41,11 @@ function Register ({ onSubmit, isUserAuthed }) {
             className="register__error">{errors.name}</span>)}
           <label className="register__input-label">E-mail</label>
           <input
-            className={`register__input ${errors.email && 'register__input_error'}`}
-            placeholder="Email"
             id="email"
             name="email"
             type="email"
+            placeholder="Email"
+            className={`register__input ${errors.email && 'register__input_error'}`}
             value={values.email}
             onChange={onChange}
             required
@@ -58,17 +54,17 @@ function Register ({ onSubmit, isUserAuthed }) {
             className="register__error">{errors.email}</span>)}
           <label className="register__input-label">Пароль</label>
           <input
-            className={`register__input ${errors.password && 'register__input_error'}`}
-            placeholder="Пароль"
-            type="password"
-            name="password"
             id="password"
+            name="password"
+            type="password"
+            placeholder="Пароль"
+            className={`register__input ${errors.password && 'register__input_error'}`}
             value={values.password}
             autoComplete="on"
             onChange={onChange}
-            required
             minLength="2"
             maxLength="30"
+            required
           />
           {errors.password && (<span
             className="register__error">{errors.password}</span>)}

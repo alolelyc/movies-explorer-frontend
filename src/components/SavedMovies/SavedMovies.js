@@ -14,25 +14,25 @@ function SavedMovies (props) {
     movies,
     saveMovies,
     isLoading,
-    onDislike } = props;
+    onRemoveMovie } = props;
 
   useEffect(() => {
-    setIsChecked(false);
     setSearchText("");
+    setIsChecked(false);
   }, [])
 
   return (
     <section className="saved-movies">
       <SearchForm
-        isLoading={isLoading}
         isSaveInLS={false}
         setSearchText={setSearchText}
         setIsChecked={setIsChecked}
+        isLoading={isLoading}
       />
       <MoviesCardList
         saveMovies={saveMovies}
         isLoading={isLoading}
-        onDislike={onDislike}
+        onRemoveMovie={onRemoveMovie}
         movies={movies}
       />
     </section>

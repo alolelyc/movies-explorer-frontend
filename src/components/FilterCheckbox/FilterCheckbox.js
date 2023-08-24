@@ -5,15 +5,15 @@ import { useState } from "react";
 
 function FilterCheckbox (props) {
   const { setIsChecked, isSaveInLS } = props;
-  const isChecked = localStorage.getItem("filterShortsMovies");
-  const [isToggleOn, setIsToggleOn] = useState(
+  const isCheckedInLS = localStorage.getItem("filterShortsMovies");
+  const [isCheckedCheckbox, setIsCheckedCheckbox] = useState(
     isSaveInLS
-      ? isChecked === "true"
+      ? isCheckedInLS === "true"
       : false);
 
   function handleChange (e) {
     setIsChecked(e.target.checked);
-    setIsToggleOn(e.target.checked)
+    setIsCheckedCheckbox(e.target.checked)
   }
 
   return (
@@ -24,7 +24,7 @@ function FilterCheckbox (props) {
           type="checkbox"
           id="checkbox"
           form="search-form"
-          checked={isToggleOn}
+          checked={isCheckedCheckbox}
           onChange={handleChange}
         />
         <span className="filter-checkbox__slider" />

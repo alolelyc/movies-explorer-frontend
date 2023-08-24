@@ -13,28 +13,21 @@ function Movies (props) {
     movies,
     saveMovies,
     isLoading,
-    onLike,
-    onDislike } = props;
+    onAddMovie,
+    onRemoveMovie } = props;
 
   const [viewMovies, setViewMovies] = useState([]);
   const nonViewedMovies = movies.slice(viewMovies.length);
   const [qtyNewCardsInLine, setQtyNewCardsInLine] = useState(null);
   const [cardsInFirstLoad, setCountCardsPerLoad] = useState(calcQuantityCards().cardsInFirstLoad);
   useTitle('Фильмы'); // установка заголовка для страницы
+
   useEffect(() => {
     setViewMovies(movies.slice(0, cardsInFirstLoad))
   }, [movies])
 
-  useEffect(() => {
-    const { cardsInFirstLoad, qtyNewCardsInLine } = calcQuantityCards();
-    setCountCardsPerLoad(cardsInFirstLoad);
-    setQtyNewCardsInLine(qtyNewCardsInLine);
-    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  function onClickMore () {
+  function addMoviesMore () {
     setViewMovies([...viewMovies, ...nonViewedMovies.slice(0, qtyNewCardsInLine)])
   }
 
@@ -46,21 +39,30 @@ function Movies (props) {
     }, 1000);
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    const { cardsInFirstLoad, qtyNewCardsInLine } = calcQuantityCards();
+    setCountCardsPerLoad(cardsInFirstLoad);
+    setQtyNewCardsInLine(qtyNewCardsInLine);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section className="movies">
       <SearchForm isLoading={isLoading}
         setIsChecked={setIsChecked}
         setSearchText={setSearchText}
-        isSaveInLS={true}
+        isSaveInLS
       />
       <MoviesCardList
         movies={viewMovies}
         isLoading={isLoading}
         nonViewedMovies={nonViewedMovies}
-        onClickMore={onClickMore}
+        addMoviesMore={addMoviesMore}
         saveMovies={saveMovies}
-        onLike={onLike}
-        onDislike={onDislike}
+        onAddMovie={onAddMovie}
+        onRemoveMovie={onRemoveMovie}
       />
     </section>
   );

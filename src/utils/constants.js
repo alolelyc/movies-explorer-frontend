@@ -1,7 +1,7 @@
 export const ALL_MOVIES_SERVER_URL = 'https://api.nomoreparties.co/beatfilm-movies';
 export const ALL_MOVIES_SERVER = 'https://api.nomoreparties.co';
-// export const BASE_URL = 'https://******.nomoredomains.rocks';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.alolelyc.movies.nomoredomains.rocks';
+// export const BASE_URL = 'http://localhost:3000';
 
 export const DURATION_SHORTS_MOVIES = 40;
 export const MAX_MOVIES_ON_PAGE = 12;

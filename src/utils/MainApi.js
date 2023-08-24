@@ -4,20 +4,18 @@ class MainApi {
   constructor(options) {
     this._options = options;
     this._server = this._options.server;
-
-    //возвращаем контекст
-    this.onLogin = this._handleLogin.bind(this)
-    this.onRegister = this._handleCreateUser.bind(this)
-    this.onCheckUser = this._handleCheckUser.bind(this)
-    this.onGetUserInfo = this._handleUserInfo.bind(this)
-    this.onEditProfile = this._handleEditProfileData.bind(this)
-    this.onGetSavedMovies = this._handleGetMovies.bind(this)
-    this.onAddMovie = this._handleCreateMovie.bind(this)
-    this.onRemoveMovie = this._handleDeleteMovie.bind(this)
-    this.onLogout = this._handleExit.bind(this)
+    this.onLogin = this.onLogin.bind(this)
+    this.onRegister = this.onRegister.bind(this)
+    this.onCheckUser = this.onCheckUser.bind(this)
+    this.onGetUserInfo = this.onGetUserInfo.bind(this)
+    this.onEditProfile = this.onEditProfile.bind(this)
+    this.onGetSavedMovies = this.onGetSavedMovies.bind(this)
+    this.onAddMovie = this.onAddMovie.bind(this)
+    this.onRemoveMovie = this.onRemoveMovie.bind(this)
+    this.onLogout = this.onLogout.bind(this)
   }
 
-  _getHeaders () {
+  _headers () {
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -39,66 +37,69 @@ class MainApi {
           Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  _handleCheckUser () {
-    return fetch(`${this._server}/users/me`, {
+  async onCheckUser () {
+    const res = await fetch(`${this._server}/users/me`, {
       method: 'GET',
       credentials: 'include',
-      headers: this._getHeaders(),
-    }).then(this._handleErrorAndResponse);
+      headers: this._headers(),
+    });
+    return this._handleErrorAndResponse(res);
   };
 
-  _handleCreateUser (email, password, name) {
-    return fetch(`${this._server}/signup`, {
+  async onRegister (email, password, name) {
+    const res = await fetch(`${this._server}/signup`, {
       method: 'POST',
       credentials: "include",
-      headers: this._getHeaders(),
+      headers: this._headers(),
       body: JSON.stringify({ email, password, name })
-    }).then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   };
 
-  _handleLogin ({ email, password }) {
-    return fetch(`${this._server}/signin`, {
+  async onLogin ({ email, password }) {
+    const res = await fetch(`${this._server}/signin`, {
       credentials: 'include',
       method: 'POST',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       body: JSON.stringify({ email, password })
-    }).then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   };
 
 
-  _handleUserInfo () {
-    return fetch(`${this._server}/users/me`, {
+  async onGetUserInfo () {
+    const res = await fetch(`${this._server}/users/me`, {
       method: 'GET',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       credentials: 'include',
-    })
-      .then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   }
 
-  _handleEditProfileData ({ name, email }) {
-    return fetch(`${this._server}/users/me`, {
+  async onEditProfile ({ name, email }) {
+    const res = await fetch(`${this._server}/users/me`, {
       method: 'PATCH',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       credentials: 'include',
       body: JSON.stringify({ name, email }),
-    })
-      .then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   }
 
-  _handleGetMovies () {
-    return fetch(`${this._server}/movies`, {
+  async onGetSavedMovies () {
+    const res = await fetch(`${this._server}/movies`, {
       method: 'GET',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       credentials: 'include',
-    })
-      .then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   }
 
-  _handleCreateMovie (movie) {
+  async onAddMovie (movie) {
     const { movieId, nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail } = movie;
-    return fetch(`${this._server}/movies`, {
+    const res = await fetch(`${this._server}/movies`, {
       method: 'POST',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       credentials: 'include',
       body: JSON.stringify({
         image,
@@ -113,26 +114,26 @@ class MainApi {
         nameRU,
         nameEN,
       }),
-    })
-      .then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   }
 
-  _handleDeleteMovie (id) {
-    return fetch(`${this._server}/movies/${id}`, {
+  async onRemoveMovie (id) {
+    const res = await fetch(`${this._server}/movies/${id}`, {
       method: 'DELETE',
-      headers: this._getHeaders(),
+      headers: this._headers(),
       credentials: 'include',
-    })
-      .then(this._handleErrorAndResponse);
+    });
+    return this._handleErrorAndResponse(res);
   }
 
-  _handleExit () {
-    return fetch(`${this._server}/signout`, {
+  async onLogout () {
+    const res = await fetch(`${this._server}/signout`, {
       method: 'GET',
       credentials: 'include',
-      headers: this._getHeaders(),
-    })
-      .then(this._handleErrorAndResponse);
+      headers: this._headers(),
+    });
+    return this._handleErrorAndResponse(res);
   }
 };
 

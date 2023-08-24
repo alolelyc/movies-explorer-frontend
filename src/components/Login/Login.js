@@ -4,7 +4,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import useForm from "../../hooks/useForm";
-//import { useEffect } from "react";
+import { useEffect } from "react";
 import useTitle from "../../hooks/useTitle";
 
 const Login = ({ onSubmit, isUserAuthed }) => {
@@ -27,10 +27,11 @@ const Login = ({ onSubmit, isUserAuthed }) => {
         <form className="login__form" onSubmit={handleSubmit}>
           <label className="login__input-label">E-mail</label>
           <input
-            className={`login__input ${errors.email && 'login__input_error'}`}
-            placeholder="Email"
+            id="email"
             name="email"
             type="email"
+            placeholder="Email"
+            className={`login__input ${errors.email && 'login__input_error'}`}
             minLength="2"
             maxLength="30"
             value={values.email}
@@ -41,10 +42,11 @@ const Login = ({ onSubmit, isUserAuthed }) => {
             className="login__error">{errors.email}</span>)}
           <label className="login__input-label">Пароль</label>
           <input
-            className={`login__input ${errors.password && 'login__input_error'}`}
-            placeholder="Пароль"
+            id="password"
             name="password"
             type="password"
+            placeholder="Пароль"
+            className={`login__input ${errors.password && 'login__input_error'}`}
             minLength="2"
             maxLength="30"
             value={values.password}

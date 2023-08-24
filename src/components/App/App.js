@@ -16,8 +16,9 @@ import NotFound from "../NotFound/NotFound";
 import { useEffect } from "react";
 import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
-import { DURATION_SHORTS_MOVIES } from "../../utils/constants";
 import NotifyPopup from "../NotifyPopup/NotifyPopup.js";
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import filterMovies from "../../utils/filterMovies.js";
 
 const App = () => {
   const navigate = useNavigate();
@@ -25,34 +26,51 @@ const App = () => {
   const location = useLocation();
   const url = location.pathname;
 
+  // стейт авторизован клиент или нет
   const [isUserAuthed, setIsUserAuthed] = useState(false);
+  // стейт открыт бургер меню или нет
   const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false);
+  // стейт загрузки идет или нет
   const [isLoading, setIsLoading] = useState(false);
+  // стейт данных текущего пользователя
   const [currentUser, setСurrentUser] = useState({ email: '', name: '' });
+  // стейт текста уведомления
   const [textNotification, setTextNotification] = useState('');
+  // стейт открыта модалка или нет
   const [isOpenNotifyPopup, setIsOpenNotifyPopup] = useState(false);
+  // стейт массива всех фильмов
   const [movies, setMovies] = useState([]);
+  // стейт массива сохранненых фильмов
   const [saveMovies, setMoviesSaved] = useState([]);
+  // стейт массива отфильтрованных сохранненых фильмов
   const [filteredSaveMovies, setFilteredSaveMovies] = useState([]);
+  // стейт включен фильтр чекбокс для короткометражек для всех фильмов или нет
   const [isFilterShortsMovies, setIsFilterShortsMovies] = useState(
     localStorage.getItem("filterShortsMovies")
       ? localStorage.getItem("filterShortsMovies") === "true"
       : false);
+  // стейт текстового запроса поиска для всех фильмов
   const [queryFilterMovies, setQueryFilterMovies] = useState(
     localStorage.getItem("query")
       ? localStorage.getItem("query")
       : "");
+  // стейт включен фильтр чекбокс для короткометражек для сохраненных фильмов или нет
   const [isFilterShortsSaveMovies, sesFilterShortsSaveMovies] = useState(null);
+  // стейт текстового запроса поиска для сохраненных фильмов
   const [queryFilterSaveMovies, setQueryFilterSaveMovies] = useState('');
 
-
-  function openBurgerMenu () {
+  // открытие меню
+  const openBurgerMenu = () => {
     setIsOpenBurgerMenu(true);
   }
-  function closeBurgerMenu () {
+
+  // закрытие меню
+  const closeBurgerMenu = () => {
     setIsOpenBurgerMenu(false);
   }
-  function handlerErrors (err) {
+
+  // ошибки приходят сюда
+  const handlerErrors = (err) => {
     let text;
     err.message === 'Failed to fetch'
       ? text = 'Проблемы с интернетом'
@@ -61,7 +79,16 @@ const App = () => {
     console.log(err);
   }
 
-  const checkToken = async () => {
+  // функция удаления данных пользователя с приложения
+  const removeUserData = (notify = true) => {
+    setIsUserAuthed(false);
+    localStorage.clear();
+    setСurrentUser({ email: '', name: '' });
+    notify && setQueryFilterMovies('')
+  }
+
+  // проверка данных пользователя на сервере
+  const checkUser = async () => {
     try {
       const data = await mainApi.onCheckUser();
       if (!data.error) {
@@ -69,6 +96,8 @@ const App = () => {
         const { email, name } = data;
         setСurrentUser({ email, name });
         navigate(url);
+      } else {
+        removeUserData(false)
       }
     }
     catch (error) {
@@ -76,27 +105,15 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    if (!isUserAuthed) {
-      try {
-        setIsLoading(true);
-        checkToken();
-      } catch (error) {
-        handlerErrors(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  }, []);
-
-  function handleLoginAndRegister (email, password, name, authFunction) {
+  // функция создания пользователя - регистрация
+  const handleCreateUser = async ({ email, password, name }) => {
     setIsLoading(true);
-    authFunction(email, password, name)
+    mainApi.onRegister(email, password, name)
       .then((res) => {
         if (res.error) {
           throw new Error(res.error)
         }
-        checkToken()
+        checkUser()
           .then(() => {
             navigate('/movies');
           })
@@ -106,72 +123,57 @@ const App = () => {
       .finally(() => setIsLoading(false))
   }
 
-  function handleCreateUser ({ email, password, name }) {
-    handleLoginAndRegister(email, password, name, mainApi.onRegister);
-  }
-  function handleLogin (email, password) {
-    handleLoginAndRegister(email, password, null, mainApi.onLogin);
+  // функция авторизации пользователя - вход
+  const handleLogin = async (email, password) => {
+    setIsLoading(true);
+    mainApi.onLogin(email, password)
+      .then((res) => {
+        if (res.error) {
+          throw new Error(res.error)
+        }
+        checkUser()
+          .then(() => {
+            navigate('/movies');
+          })
+          .catch(handlerErrors)
+      })
+      .catch(handlerErrors)
+      .finally(() => setIsLoading(false))
   }
 
-  function handleSignOut () {
+  // функция выхода пользователя и удаления куков,а также всех данных
+  const handleSignOut = async () => {
     setIsLoading(true);
     mainApi.onLogout()
       .then(() => {
-        setQueryFilterMovies('')
-        localStorage.clear();
-        setIsUserAuthed(false);
+        removeUserData()
         setTextNotification(`Вы вышли! История поиска очищена`);
-        setСurrentUser({ email: '', name: '' });
         navigate('/');
       })
       .catch(handlerErrors)
       .finally(() => setIsLoading(false))
   }
 
-  function handleChangeProfile ({ name, email }) {
+  // функция изменения данных пользователя
+  const handleEditUser = async ({ name, email }) => {
     setIsLoading(true);
     mainApi.onEditProfile({ name, email })
-      .then((data) => {
-        if (data.error) {
-          throw new Error(data.error)
+      .then((response) => {
+        if (response.error) {
+          removeUserData();
+          throw new Error(response.error)
         }
         setTextNotification(`Новые имя и емейл сохранены!`);
-        setСurrentUser(data);
+        setСurrentUser(response);
       })
       .catch(handlerErrors)
       .finally(() => setIsLoading(false))
 
   }
 
-  useEffect(() => {
-    textNotification && setIsOpenNotifyPopup(true)
-  }, [textNotification]);
-
-  useEffect(() => {
-    !isOpenNotifyPopup && setTextNotification('')
-  }, [isOpenNotifyPopup]);
-
-  useEffect(() => {
-    if (isUserAuthed) {
-      navigate(url);
-    }
-  }, [isUserAuthed])
-
-
-  const filterMovies = (moviesList = [], searchText = '', isFilterShorts = false) => {
-    const filterSearchMoviesList = moviesList.filter(
-      (card) =>
-        card.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
-        card.nameEN.toLowerCase().includes(searchText.toLowerCase()) ||
-        card.description.toLowerCase().includes(searchText.toLowerCase()));
-    if (isFilterShorts) {
-      return filterSearchMoviesList.filter((card) => card.duration <= DURATION_SHORTS_MOVIES);
-    } else {
-      return filterSearchMoviesList;
-    }
-  }
-
+  // функция получения списка всех фильмов
   const getMovies = async () => {
+    // если запрос пустой, то и массив пустой
     if (!queryFilterMovies) {
       setMovies([]);
       return;
@@ -179,15 +181,19 @@ const App = () => {
     try {
       setIsLoading(true);
       const moviesInHistory = localStorage.getItem("movies");
-      let moviesAll;
+      let moviesList;
+      // если в локалсторедж есть сохраненный список фильмов с прошлого поиска, то воспользуемся им
       if (moviesInHistory === JSON.stringify(movies)) {
-        moviesAll = JSON.parse(moviesInHistory)
+        moviesList = JSON.parse(moviesInHistory)
       } else {
-        moviesAll = await moviesApi.getAllMovies();
+        // а если нет, то загрузим с сервера
+        moviesList = await moviesApi.getAllMovies();
       }
-      localStorage.setItem("movies", JSON.stringify(moviesAll));
-
-      const filteredMovies = filterMovies(moviesAll, queryFilterMovies, isFilterShortsMovies);
+      // сохраним в локалсторедж
+      localStorage.setItem("movies", JSON.stringify(moviesList));
+      // сразу отфильтруем
+      const filteredMovies = filterMovies(moviesList, queryFilterMovies, isFilterShortsMovies);
+      // запишем в стейт отфильтрованные фильмы
       setMovies(filteredMovies);
     } catch (err) {
       handlerErrors(err);
@@ -199,15 +205,19 @@ const App = () => {
   const getSaveMovies = async () => {
     try {
       const saveMoviesInHistory = localStorage.getItem("saveMovies");
-      let saveMovies;
-      if (saveMoviesInHistory === JSON.stringify(saveMovies)) {
-        saveMovies = JSON.parse(saveMoviesInHistory)
+      let moviesList;
+      // если в локалсторедж есть сохраненный список любимых фильмов с прошлого поиска, то воспользуемся им
+      if (saveMoviesInHistory === JSON.stringify(moviesList)) {
+        moviesList = JSON.parse(saveMoviesInHistory)
       } else {
-        saveMovies = await mainApi.onGetSavedMovies();
+        // а если нет, то загрузим с сервера
+        moviesList = await mainApi.onGetSavedMovies();
       }
-      localStorage.setItem("saveMovies", JSON.stringify(saveMovies));
-      setMoviesSaved(saveMovies);
-      const filteredSaveMovies = filterMovies(saveMovies, queryFilterSaveMovies, isFilterShortsSaveMovies);
+      // сохраним в локалсторедж
+      localStorage.setItem("saveMovies", JSON.stringify(moviesList));
+      setMoviesSaved(moviesList);
+      // сразу отфильтруем
+      const filteredSaveMovies = filterMovies(moviesList, queryFilterSaveMovies, isFilterShortsSaveMovies);
       setFilteredSaveMovies(filteredSaveMovies);
     } catch (err) {
       handlerErrors(err);
@@ -215,30 +225,70 @@ const App = () => {
     }
   };
 
+  // функция добавления фильма в избранное
   async function handleAddMovie (movie) {
     try {
       const newMovie = await mainApi.onAddMovie(movie);
+      if (newMovie.error) {
+        removeUserData();
+        throw new Error(newMovie.error)
+      }
       setMoviesSaved([...saveMovies, newMovie])
       localStorage.setItem("saveMovies", JSON.stringify([...saveMovies, newMovie]));
     } catch (err) {
       handlerErrors(err);
-    } finally {
     }
   }
 
+  // функция удаления фильма из списка сохраненных
   async function handleRemoveSavedMovie (movieId) {
     const findedMovie = saveMovies.find(card => card.movieId === movieId);
     try {
       const removedMovie = await mainApi.onRemoveMovie(findedMovie._id);
+      if (removedMovie.error) {
+        removeUserData();
+        throw new Error(removedMovie.error)
+      }
       const newArraySaveMovieList = saveMovies.filter((card) => card._id !== removedMovie._id);
       setMoviesSaved(newArraySaveMovieList)
       localStorage.setItem("saveMovies", JSON.stringify(newArraySaveMovieList));
     } catch (err) {
       handlerErrors(err);
-    } finally {
     }
   }
 
+  //при первой загрузке, если клиент не авторизован проверяем его данные на сервере
+  useEffect(() => {
+    if (!isUserAuthed) {
+      try {
+        setIsLoading(true);
+        checkUser();
+      } catch (error) {
+        handlerErrors(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  }, []);
+
+  // если мы добавили текст в уведомления, то открываем модалку
+  useEffect(() => {
+    if (textNotification) setIsOpenNotifyPopup(true)
+  }, [textNotification]);
+
+  // если закрыли модалку сами, то подтираем текст уведомления
+  useEffect(() => {
+    if (!isOpenNotifyPopup) setTextNotification('')
+  }, [isOpenNotifyPopup]);
+
+  // возвращаем на страницу, куда было обращение
+  useEffect(() => {
+    if (isUserAuthed) {
+      navigate(url);
+    }
+  }, [isUserAuthed])
+
+  // если изменили текст запроса или фильтр чекбокса то обновляем список
   useEffect(() => {
     if (isUserAuthed) {
       getMovies();
@@ -253,6 +303,7 @@ const App = () => {
     }
   }, [isFilterShortsSaveMovies, queryFilterSaveMovies]);
 
+  // если авторизация успешная, загружаем список фильмов
   useEffect(() => {
     if (isUserAuthed) {
       getMovies();
@@ -260,6 +311,7 @@ const App = () => {
     }
   }, [isUserAuthed]);
 
+  // если был включен фильтр по сохраненным фильмам и мы сделали изменения в список (добавление/удаление), то вернем настройки фильтра
   useEffect(() => {
     const filteredSaveMovies = filterMovies(saveMovies, queryFilterSaveMovies, isFilterShortsSaveMovies);
     setFilteredSaveMovies(filteredSaveMovies);
@@ -289,33 +341,41 @@ const App = () => {
               isUserAuthed={isUserAuthed}
               onSubmit={handleLogin} />}
           />
-          <Route path="/movies"
-            element={<Movies
+          <Route path="/movies" element={
+            <ProtectedRoute
+              element={Movies}
               isUserAuthed={isUserAuthed}
               setIsChecked={setIsFilterShortsMovies}
               setSearchText={setQueryFilterMovies}
               movies={movies}
               saveMovies={saveMovies}
               isLoading={isLoading}
-              onLike={handleAddMovie}
-              onDislike={handleRemoveSavedMovie} />} />
-          <Route
-            path="/saved-movies"
-            element={<SavedMovies
+              onAddMovie={handleAddMovie}
+              onRemoveMovie={handleRemoveSavedMovie}
+            />
+          } />
+
+          <Route path="/saved-movies" element={
+            <ProtectedRoute
+              element={SavedMovies}
               isUserAuthed={isUserAuthed}
               movies={filteredSaveMovies}
               setSearchText={setQueryFilterSaveMovies}
               setIsChecked={sesFilterShortsSaveMovies}
               saveMovies={saveMovies}
               isLoading={isLoading}
-              onDislike={handleRemoveSavedMovie}
-            />}
-          />
-          <Route path="/profile"
-            element={<Profile
-              onEditProfile={handleChangeProfile}
+              onRemoveMovie={handleRemoveSavedMovie}
+            />
+          } />
+          <Route path="/profile" element={
+            <ProtectedRoute
+              element={Profile}
+              isUserAuthed={isUserAuthed}
+              onEditProfile={handleEditUser}
               isLoading={isLoading}
-              onSignOut={handleSignOut} />} />
+              onSignOut={handleSignOut}
+            />
+          } />
           <Route path="*"
             element={<NotFound />} />
         </Routes>
