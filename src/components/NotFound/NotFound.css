@@ -1,0 +1,88 @@
+.not-found {
+  max-width: 1280px;
+  width: 100%;
+}
+
+@media screen and (max-width: 984px) {
+  .not-found {
+    max-width: 768px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .not-found {
+    max-width: 320px;
+  }
+}
+
+.not-found__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 246px auto 60px;
+}
+
+@media screen and (max-width: 984px) {
+  .not-found__box {
+    margin-top: 408px;
+    margin-bottom: 222px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .not-found__box {
+    margin-top: 329px;
+    margin-bottom: 30px;
+  }
+}
+
+.not-found__error {
+  font-size: 140px;
+  font-weight: 400;
+  line-height: normal;
+  color: #000;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .not-found__error {
+    font-size: 80px;
+  }
+}
+
+.not-found__message {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #000;
+  padding: 0;
+  margin: 5px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+  .not-found__message {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+.not-found__button {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  color: #3456f3;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  margin: 184px auto 0;
+}
+
+@media screen and (max-width: 768px) {
+  .not-found__button {
+    font-size: 12px;
+    margin-top: 284px;
+  }
+}
