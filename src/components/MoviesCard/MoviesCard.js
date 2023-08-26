@@ -38,7 +38,7 @@ function MoviesCard (props) {
   }
   return (
     <li className="movies-card">
-      <img className="movies-card__img" src={image} alt={card.nameRU} />
+      <img className="movies-card__img" src={image} alt={card.nameRU} onClick={handleClickTrailerLink} />
       <div className="movies-card__box">
         <span className="movies-card__link" onClick={handleClickTrailerLink}>
           {card.nameRU}

@@ -10,11 +10,13 @@ import useTitle from "../../hooks/useTitle";
 function Movies (props) {
   const { setIsChecked,
     setSearchText,
+    searchText,
     movies,
     saveMovies,
     isLoading,
     onAddMovie,
-    onRemoveMovie } = props;
+    onRemoveMovie,
+    setError } = props;
 
   const [viewMovies, setViewMovies] = useState([]);
   const nonViewedMovies = movies.slice(viewMovies.length);
@@ -53,6 +55,7 @@ function Movies (props) {
       <SearchForm isLoading={isLoading}
         setIsChecked={setIsChecked}
         setSearchText={setSearchText}
+        setError={setError}
         isSaveInLS
       />
       <MoviesCardList
@@ -63,6 +66,7 @@ function Movies (props) {
         saveMovies={saveMovies}
         onAddMovie={onAddMovie}
         onRemoveMovie={onRemoveMovie}
+        searchText={searchText}
       />
     </section>
   );

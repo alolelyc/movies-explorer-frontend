@@ -5,6 +5,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
 import { useEffect } from "react";
 import { useState } from "react";
+import Preloader from "../Preloader/Preloader";
 
 function MoviesCardList (props) {
   const {
@@ -14,7 +15,8 @@ function MoviesCardList (props) {
     addMoviesMore,
     saveMovies,
     onAddMovie,
-    onRemoveMovie
+    onRemoveMovie,
+    searchText
   } = props;
 
   const [arrayIdentificators, setArrayIdentificators] = useState([]);
@@ -28,7 +30,7 @@ function MoviesCardList (props) {
   function isSavedOrNot (card) {
     return arrayIdentificators.includes(card.id || card.movieId)
   }
-
+  if (isLoading) return <Preloader />
   return (
     <section className="movies-card-list">
       <div className="movies-card-list__box">
@@ -42,7 +44,7 @@ function MoviesCardList (props) {
                 isLiked={isSavedOrNot(card)} />;
             })}
           </ul>
-        ) : (<h3 className="movies__title">Ничего не найдено</h3>)}
+        ) : searchText && (<h3 className="movies__title">Ничего не найдено</h3>)}
         {nonViewedMovies?.length ?
           (<div className="movies-card-list__else-box">
             <button className="movies-card-list__else" onClick={addMoviesMore}>Ещё</button>

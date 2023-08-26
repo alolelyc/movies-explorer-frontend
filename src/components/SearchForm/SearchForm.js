@@ -8,7 +8,8 @@ function SearchForm (props) {
     setIsChecked,
     setSearchText,
     isLoading,
-    isSaveInLS
+    isSaveInLS,
+    setError
   } = props;
   function defaultValue () {
     if (isSaveInLS) {
@@ -18,10 +19,12 @@ function SearchForm (props) {
   function handleSubmit (event) {
     event.preventDefault();
     const searchText = event.target.elements['movie'].value;
-    setSearchText(searchText);
+    searchText
+      ? setSearchText(searchText)
+      : setError('Нужно ввести ключевое слово')
   }
   return (
-    <form className="search-form" id="search-form" onSubmit={handleSubmit}>
+    <form className="search-form" id="search-form" onSubmit={handleSubmit} noValidate>
       <fieldset className="search-form__film">
         <label className="search-form__icon" />
         <input
@@ -32,6 +35,8 @@ function SearchForm (props) {
           placeholder="Фильм"
           required
           defaultValue={defaultValue()}
+          noValidate
+          disabled={isLoading}
         />
         <button
           className="search-form__submit"

@@ -15,5 +15,5 @@ export const SMALL_WIDTH = 769;
 
 export const xxlWidth = { cardsInFirstLoad: 12, qtyNewCardsInLine: 4 }
 export const xlWidth = { cardsInFirstLoad: 12, qtyNewCardsInLine: 3 }
-export const lWidth = { cardsInFirstLoad: 8, qtyNewCardsInLine: 3 }
+export const lWidth = { cardsInFirstLoad: 8, qtyNewCardsInLine: 2 }
 export const sWidth = { cardsInFirstLoad: 5, qtyNewCardsInLine: 2 }

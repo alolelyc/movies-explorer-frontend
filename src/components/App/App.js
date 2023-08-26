@@ -183,12 +183,9 @@ const App = () => {
       const moviesInHistory = localStorage.getItem("movies");
       let moviesList;
       // если в локалсторедж есть сохраненный список фильмов с прошлого поиска, то воспользуемся им
-      if (moviesInHistory === JSON.stringify(movies)) {
-        moviesList = JSON.parse(moviesInHistory)
-      } else {
-        // а если нет, то загрузим с сервера
-        moviesList = await moviesApi.getAllMovies();
-      }
+      moviesList = moviesInHistory
+        ? JSON.parse(moviesInHistory)
+        : await moviesApi.getAllMovies();
       // сохраним в локалсторедж
       localStorage.setItem("movies", JSON.stringify(moviesList));
       // сразу отфильтруем
@@ -332,6 +329,7 @@ const App = () => {
             path="/signup"
             element={<Register
               isUserAuthed={isUserAuthed}
+              isLoading={isLoading}
               onSubmit={handleCreateUser}
             />}
           />
@@ -339,6 +337,7 @@ const App = () => {
             path="/signin"
             element={<Login
               isUserAuthed={isUserAuthed}
+              isLoading={isLoading}
               onSubmit={handleLogin} />}
           />
           <Route path="/movies" element={
@@ -347,11 +346,13 @@ const App = () => {
               isUserAuthed={isUserAuthed}
               setIsChecked={setIsFilterShortsMovies}
               setSearchText={setQueryFilterMovies}
+              searchText={queryFilterMovies}
               movies={movies}
               saveMovies={saveMovies}
               isLoading={isLoading}
               onAddMovie={handleAddMovie}
               onRemoveMovie={handleRemoveSavedMovie}
+              setError={setTextNotification}
             />
           } />
 
@@ -361,10 +362,12 @@ const App = () => {
               isUserAuthed={isUserAuthed}
               movies={filteredSaveMovies}
               setSearchText={setQueryFilterSaveMovies}
+              searchText={queryFilterSaveMovies}
               setIsChecked={sesFilterShortsSaveMovies}
               saveMovies={saveMovies}
               isLoading={isLoading}
               onRemoveMovie={handleRemoveSavedMovie}
+              setError={setTextNotification}
             />
           } />
           <Route path="/profile" element={

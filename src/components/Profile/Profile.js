@@ -55,7 +55,7 @@ function Profile (props) {
             minLength="2"
             maxLength="30"
             required
-            disabled={isEdit && !props.isLoading ? false : true}
+            disabled={!isEdit || props.isLoading}
             onChange={onChange}
             value={values.name || ""}
           />
@@ -70,7 +70,7 @@ function Profile (props) {
             type="email"
             placeholder="E-mail"
             required
-            disabled={isEdit && !props.isLoading ? false : true}
+            disabled={!isEdit || props.isLoading}
             onChange={onChange}
             value={values.email || ""}
           />

@@ -5,9 +5,11 @@ import logo from "../../images/logo.svg";
 import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
 import useTitle from "../../hooks/useTitle";
+import { useNavigate } from "react-router-dom";
 
-function Register ({ onSubmit, isUserAuthed }) {
+function Register ({ onSubmit, isUserAuthed, isLoading }) {
   useTitle('Регистрация'); // установка заголовка для страницы
+  const navigate = useNavigate();
 
   const { values, errors, isFormValid, onChange } = useForm();
 
@@ -15,6 +17,14 @@ function Register ({ onSubmit, isUserAuthed }) {
     e.preventDefault();
     onSubmit(values);
   };
+
+  useEffect(() => {
+    if (isUserAuthed) {
+      setTimeout(() => {
+        navigate('/', { replace: true });
+      }, 0)
+    }
+  }, [isUserAuthed]);
   return (
     <section className="register">
       <div className="register__container">
@@ -35,6 +45,7 @@ function Register ({ onSubmit, isUserAuthed }) {
             maxLength="30"
             value={values.name}
             onChange={onChange}
+            disabled={isLoading}
             required
           />
           {errors.name && (<span
@@ -48,6 +59,7 @@ function Register ({ onSubmit, isUserAuthed }) {
             className={`register__input ${errors.email && 'register__input_error'}`}
             value={values.email}
             onChange={onChange}
+            disabled={isLoading}
             required
           />
           {errors.email && (<span
@@ -64,6 +76,7 @@ function Register ({ onSubmit, isUserAuthed }) {
             onChange={onChange}
             minLength="2"
             maxLength="30"
+            disabled={isLoading}
             required
           />
           {errors.password && (<span
@@ -71,7 +84,7 @@ function Register ({ onSubmit, isUserAuthed }) {
           <button
             type="submit"
             className="register__btn"
-            disabled={!isFormValid}
+            disabled={!isFormValid || isLoading}
           >
             Зарегистрироваться
           </button>

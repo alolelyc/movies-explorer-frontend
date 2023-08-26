@@ -11,10 +11,12 @@ function SavedMovies (props) {
   const { isUserAuthed,
     setIsChecked,
     setSearchText,
+    searchText,
     movies,
     saveMovies,
     isLoading,
-    onRemoveMovie } = props;
+    onRemoveMovie,
+    setError } = props;
 
   useEffect(() => {
     setSearchText("");
@@ -28,12 +30,14 @@ function SavedMovies (props) {
         setSearchText={setSearchText}
         setIsChecked={setIsChecked}
         isLoading={isLoading}
+        setError={setError}
       />
       <MoviesCardList
         saveMovies={saveMovies}
         isLoading={isLoading}
         onRemoveMovie={onRemoveMovie}
         movies={movies}
+        searchText={searchText}
       />
     </section>
   );

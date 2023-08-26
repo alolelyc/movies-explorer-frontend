@@ -6,9 +6,11 @@ import logo from "../../images/logo.svg";
 import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
 import useTitle from "../../hooks/useTitle";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ onSubmit, isUserAuthed }) => {
+const Login = ({ onSubmit, isUserAuthed, isLoading }) => {
   useTitle('Авторизация'); // установка заголовка для страницы
+  const navigate = useNavigate();
 
   const { values, errors, isFormValid, onChange } = useForm();
 
@@ -17,6 +19,13 @@ const Login = ({ onSubmit, isUserAuthed }) => {
     onSubmit(values);
   };
 
+  useEffect(() => {
+    if (isUserAuthed) {
+      setTimeout(() => {
+        navigate('/', { replace: true });
+      }, 0)
+    }
+  }, [isUserAuthed]);
   return (
     <section className="login">
       <div className="login__container">
@@ -36,6 +45,7 @@ const Login = ({ onSubmit, isUserAuthed }) => {
             maxLength="30"
             value={values.email}
             onChange={onChange}
+            disabled={isLoading}
             required
           />
           {errors.email && (<span
@@ -52,6 +62,7 @@ const Login = ({ onSubmit, isUserAuthed }) => {
             value={values.password}
             autoComplete="on"
             onChange={onChange}
+            disabled={isLoading}
             required
           />
           {errors.password && (<span
@@ -59,7 +70,7 @@ const Login = ({ onSubmit, isUserAuthed }) => {
           <button
             className="login__button"
             type="submit"
-            disabled={!isFormValid}
+            disabled={!isFormValid || isLoading}
           >
             Войти
           </button>

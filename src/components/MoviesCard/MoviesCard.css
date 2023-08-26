@@ -16,6 +16,7 @@
   height: 151px;
   object-fit: cover;
   object-position: center;
+  cursor: pointer;
 }
 @media screen and (max-width: 768px) {
   .movies-card__img {
